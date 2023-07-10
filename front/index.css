@@ -1,0 +1,9 @@
+@font-face {
+  font-family: "iCiel Koni";
+  src: url("./koni-black.ttf") format("truetype");
+}
+
+.bold-park {
+  font-family: "iCiel Koni", Arial, sans-serif;
+  /* Các thuộc tính CSS khác cho chữ đậm "Park" */
+}

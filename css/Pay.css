@@ -1,0 +1,50 @@
+.payTitle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  margin-top: 50px;
+  margin-left: 460px;
+  font-size: 63px;
+  color: #fff;
+}
+.MainBackGroundPay {
+  position: absolute;
+}
+.CotPay {
+  margin-top: -1050px;
+  margin-left: 730px;
+}
+.ImagePay {
+  position: absolute;
+  margin-left: 0px;
+  z-index: 3;
+  margin-top: -340px;
+}
+/* Khung Left */
+.BackgroundPayLeft {
+  position: relative;
+}
+.BgLevel3 {
+  background-color: rgba(253, 232, 179, 1);
+  width: 70.5%;
+  height: 325px;
+  margin-left: 137px;
+  margin-top: -673px;
+  border-radius: 18px;
+  z-index: 1;
+  position: absolute;
+}
+.BgLevel2 {
+  background-color: rgba(255, 246, 212, 1);
+  width: 97%;
+  height: 300px;
+  margin-top: 10px;
+  margin-left: 10px;
+  border: dashed 3px rgba(255, 180, 137, 1);
+  border-radius: 18px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  position: absolute;
+  z-index: 0;
+}

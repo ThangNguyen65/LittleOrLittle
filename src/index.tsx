@@ -6,7 +6,9 @@ import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.bundle";
 import { BrowserRouter } from "react-router-dom";
-import "./front/index.css";
+import "./App.css";
+import "./css/Pay.css";
+import "./css/Contact.css";
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );

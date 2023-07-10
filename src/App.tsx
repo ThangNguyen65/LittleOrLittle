@@ -1,4 +1,3 @@
-import "./App.css";
 import NavBar from "./pages/navbar";
 import Routess from "./routes/routes";
 

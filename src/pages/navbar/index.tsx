@@ -1,6 +1,6 @@
-import logoHome from "../../img/Little & Little Logo (ngang) 1 (1).svg";
+import logoHome from "../../img/navbar/Little & Little Logo (ngang) 1 (1).svg";
 import { Button, Image } from "antd";
-import IconsPhone from "../../img/IconsPhone.svg";
+import IconsPhone from "../../img/navbar/IconsPhone.svg";
 import { useNavigate } from "react-router-dom";
 function NavBar() {
   const navigate = useNavigate();
@@ -78,7 +78,7 @@ function NavBar() {
                 </Button>
               </div>
               <div className="contact">
-                <Image src={IconsPhone} preview={false} />
+                <Image src={IconsPhone} preview={false} width={'20%'}/>
                 <p className="phoneContact">0123456789</p>
               </div>
             </div>

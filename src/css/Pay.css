@@ -12,33 +12,44 @@
   position: absolute;
 }
 .CotPay {
-  margin-top: -1050px;
-  margin-left: 730px;
+  margin-top: -1141px;
+  margin-left: 732px;
 }
 .ImagePay {
   position: absolute;
   margin-left: 0px;
   z-index: 3;
-  margin-top: -340px;
+  margin-top: -367px;
 }
 /* Khung Left */
-.BackgroundPayLeft {
+.BackgroundPayLeft,
+.BackgroundPayRight {
   position: relative;
 }
-.BgLevel3 {
+.BgLevel3Left {
   background-color: rgba(253, 232, 179, 1);
-  width: 70.5%;
-  height: 325px;
+  width: 70.79%;
+  height: 350px;
   margin-left: 137px;
-  margin-top: -673px;
+  margin-top: -730px;
   border-radius: 18px;
   z-index: 1;
   position: absolute;
 }
-.BgLevel2 {
+.BgLevel3Right {
+  background-color: rgba(253, 232, 179, 1);
+  width: 45%;
+  height: 350px;
+  margin-left: 775px;
+  margin-top: -755px;
+  border-radius: 18px;
+  z-index: 1;
+  position: absolute;
+}
+.BgLevel2Left {
   background-color: rgba(255, 246, 212, 1);
   width: 97%;
-  height: 300px;
+  height: 325px;
   margin-top: 10px;
   margin-left: 10px;
   border: dashed 3px rgba(255, 180, 137, 1);
@@ -47,4 +58,250 @@
   margin-bottom: 10px;
   position: absolute;
   z-index: 0;
+}
+.BgLevel2Right {
+  background-color: rgba(255, 246, 212, 1);
+  width: 95%;
+  height: 332px;
+  margin-top: 10px;
+  margin-left: 10px;
+  border: dashed 3px rgba(255, 180, 137, 1);
+  border-radius: 18px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  position: absolute;
+  z-index: 0;
+}
+.KhungBgRedLeft {
+  margin: -20px 0px 0px 70px;
+  position: relative;
+}
+.KhungBgRedRight {
+  margin: -20px 0px 0px 59px;
+  position: relative;
+}
+.TitlePayBgRedLeft {
+  position: absolute;
+  margin: -12px 0px 0px -375px;
+  font-size: 15px;
+  color: #fff;
+}
+.TitlePayBgRedRight {
+  position: absolute;
+  margin: -45px 0px 0px -166px;
+  font-size: 18px;
+  color: #fff;
+}
+.DuongVienChamTrangNhoLeft {
+  position: absolute;
+  margin: -36px 0px 0px -165px;
+}
+.DuongVienChamTrangNhoRight {
+  position: absolute;
+  margin: -68px 0px 0px 63px;
+}
+.PriceQuantityDate {
+  margin-left: 70px;
+  display: flex;
+  margin-top: 10px;
+}
+.InfoUserPay,
+.PhonePay,
+.EmailPay {
+  margin-left: 70px;
+}
+
+.quantityPay {
+  width: 35%;
+  border-radius: 12px;
+  background: #fff;
+  border: none;
+  padding: 6px 0px 6px 9px;
+  outline: none;
+  margin-left: 10px;
+  margin-top: -2px;
+  box-shadow: -1px 3px 3px 0px rgba(178, 91, 11, 0.5) inset;
+}
+.PricePay {
+  border-radius: 12px;
+  background: #fff;
+  border: none;
+  width: 85%;
+  padding: 6px 0px 6px 9px;
+  outline: none;
+  margin-top: -2px;
+  box-shadow: -1px 3px 3px 0px rgba(178, 91, 11, 0.5) inset;
+}
+.DatePay {
+  border-radius: 12px;
+  background: #fff;
+  border: none;
+  width: 120%;
+  margin-left: -60px;
+  padding: 6px 0px 6px 9px;
+  outline: none;
+  margin-top: -2px;
+  box-shadow: -1px 3px 3px 0px rgba(178, 91, 11, 0.5) inset;
+}
+.h6Pay {
+  font-weight: 700;
+  font-size: 15px;
+}
+.h6PayQT {
+  font-weight: 700;
+  font-size: 15px;
+  margin-left: 10px;
+}
+.h6PayDate {
+  font-weight: 700;
+  margin-left: -60px;
+  font-size: 15px;
+}
+.InPutInfoUser {
+  border-radius: 12px;
+  background: var(--w, #fff);
+  border: none;
+  outline: none;
+  width: 50%;
+  margin-top: -2px;
+  padding: 6px 0px 6px 9px;
+  box-shadow: -1px 3px 3px 0px rgba(178, 91, 11, 0.5) inset;
+}
+.InPutPhonePay {
+  border-radius: 12px;
+  background: var(--w, #fff);
+  border: none;
+  outline: none;
+  width: 29%;
+  margin-top: -2px;
+  padding: 6px 0px 6px 9px;
+  box-shadow: -1px 3px 3px 0px rgba(178, 91, 11, 0.5) inset;
+}
+.InPutEmailPay {
+  border-radius: 12px;
+  background: var(--w, #fff);
+  border: none;
+  width: 50%;
+  outline: none;
+  margin-top: -2px;
+  padding: 6px 0px 6px 9px;
+  box-shadow: -1px 3px 3px 0px rgba(178, 91, 11, 0.5) inset;
+}
+.H6InfoUserPay {
+  margin-top: 5px;
+  font-weight: 700;
+  font-size: 15px;
+}
+.H6PhonePay {
+  margin-top: 5px;
+  font-weight: 700;
+  font-size: 15px;
+}
+.H6EmailPay {
+  margin-top: 5px;
+  font-weight: 700;
+  font-size: 15px;
+}
+.InfoPay {
+  margin-left: 60px;
+  margin-top: -20px;
+}
+.InPutNumberCard {
+  border-radius: 12px;
+  background: var(--w, #fff);
+  border: none;
+  width: 85%;
+  outline: none;
+  margin-top: -5px;
+  padding: 6px 0px 6px 9px;
+  box-shadow: -1px 3px 3px 0px rgba(178, 91, 11, 0.5) inset;
+}
+.InPutNamePay {
+  border-radius: 12px;
+  background: var(--w, #fff);
+  border: none;
+  width: 85%;
+  outline: none;
+  margin-top: -5px;
+  padding: 6px 0px 6px 9px;
+  box-shadow: -1px 3px 3px 0px rgba(178, 91, 11, 0.5) inset;
+}
+.InputExpirationDate {
+  width: 72%;
+  border-radius: 12px;
+  outline: none;
+  background: #fff;
+  border: none;
+  margin-top: -5px;
+  padding: 6px 0px 6px 9px;
+  box-shadow: -1px 3px 3px 0px rgba(178, 91, 11, 0.5) inset;
+}
+.btn_date_pay {
+  width: 32px;
+  height: 30px;
+  background-color: rgba(255, 222, 50, 1);
+  border: none;
+  outline: none;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+}
+.btn_bg_date_pay {
+  background-color: rgba(255, 222, 50, 1);
+  border: none;
+  background-size: contain;
+  z-index: 1;
+  width: 32px;
+  height: 30px;
+  position: absolute;
+  margin-top: -6px;
+  margin-left: 9px;
+}
+.background-div-date-pay {
+  position: absolute;
+  top: 63%;
+  left: 79%;
+  width: 8.7%;
+  height: 16px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  background-color: #ffd27b;
+  box-shadow: 0px 2.5px 1px 0px rgba(178, 91, 11, 0.5);
+}
+.InputCVVCVC {
+  border-radius: 12px;
+  background: var(--w, #fff);
+  border: none;
+  width: 30%;
+  outline: none;
+  margin-top: -5px;
+  padding: 6px 0px 6px 9px;
+  box-shadow: -1px 3px 3px 0px rgba(178, 91, 11, 0.5) inset;
+}
+.btn_Button_Pay {
+  margin: 5px 0px 0px 35px;
+  color: #fff;
+  font-style: normal;
+  font-weight: 900;
+  line-height: normal;
+  letter-spacing: 1.68px;
+  background-color: red;
+  border: none;
+  padding: 0px 50px 5px;
+  position: relative;
+  z-index: 1;
+}
+.bg_btnContactBottom_pay {
+  background-color: #bd000b;
+  position: absolute;
+  margin-top: -12px;
+  width: 52.7%;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  height: 5%;
+  left: 25.8%;
+}
+.H6NumberCard {
+  font-size: 15px;
+  font-weight: 700;
 }

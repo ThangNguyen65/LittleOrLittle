@@ -1,0 +1,333 @@
+.BgMainHome {
+  margin-left: 24px;
+  position: relative;
+}
+.Imagedamsen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-top: 70px;
+  margin-left: 160px;
+  z-index: 1;
+  display: flex;
+}
+.TitleHome {
+  color: white;
+  margin-left: 11px;
+  font-weight: 900;
+  font-style: normal;
+  line-height: 43px;
+  margin-top: -6px;
+  font-size: 38px;
+}
+.Image1 {
+  margin: 20px 0px 0px 80px;
+}
+.Image2 {
+  margin: -27px 0px 0px 220px;
+}
+.Image3 {
+  margin: -62px 0px 0px 276px;
+}
+.Image4 {
+  margin: -430px 0px 0px 2px;
+  position: absolute;
+}
+.Image5 {
+  position: absolute;
+  margin: -290px 0px 0px -63px;
+  z-index: 2;
+}
+.BgMainAbsolute {
+  position: absolute;
+}
+.BgMainRelative {
+  position: relative;
+}
+.BgLeftTableMain {
+  background-color: rgba(253, 232, 179, 1);
+  width: 69.5%;
+  height: 297px;
+  margin: -400px 0px 0px 153px;
+  border-radius: 18px;
+  z-index: 1;
+  position: absolute;
+  padding-bottom: 2px;
+}
+.BgLeftInsideTableMain {
+  background-color: rgba(255, 246, 212, 1);
+  z-index: 0;
+  width: 97%;
+  height: 277px;
+  margin: 10px 0px 10px 10px;
+  border: dashed 3px rgba(255, 180, 137, 1);
+  border-radius: 18px;
+}
+.BgLeftInsideBottomMain {
+  position: absolute;
+  z-index: 0;
+  width: 10%;
+  margin: -122px 0px 0px 390px;
+}
+.BgLeftInsideBottom {
+  background-color: rgba(255, 202, 123, 1);
+  height: 50px;
+  width: 68.8%;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  margin: -137px 0px 0px 160px;
+  position: absolute;
+}
+.TotalTextMain {
+  margin: -240px 0px 0px 10px;
+}
+.TextMain1 {
+  font-size: 14px;
+  z-index: 1;
+  position: absolute;
+  margin-left: 20px;
+  font-family: "Montserrat";
+  color: #23221f;
+  opacity: 0.699999988079071;
+  padding-right: 20px;
+}
+.TextMain2 {
+  font-size: 14px;
+  z-index: 1;
+  position: absolute;
+  margin-top: 44px;
+  margin-left: 20px;
+  font-family: Montserrat;
+  color: #23221f;
+  opacity: 0.699999988079071;
+  padding-right: 25px;
+}
+.damsenpack {
+  text-transform: uppercase;
+  margin-left: 21px;
+  font-weight: 900;
+  color: #fff;
+}
+.kkc1 {
+  position: absolute;
+  left: 20%;
+  margin-left: "300px";
+  margin-top: "-10px";
+}
+.kkc {
+  position: absolute;
+  margin-left: "83px";
+  margin-top: "23px";
+}
+.kkc2 {
+  position: absolute;
+  z-index: 0;
+  width: 11%;
+  margin-left: 1127px;
+  margin-top: -155px;
+}
+.kkc3 {
+  position: absolute;
+  z-index: 1;
+  width: 8%;
+  margin: -390px 0px 0px 1177px;
+}
+.ButtonKhung {
+  background-image: url(../img/home/KhungButton.svg);
+  width: 70%;
+  position: relative;
+  color: #fff;
+  font-weight: 900;
+  line-height: normal;
+  margin: 8px 0px 0px 48px;
+  z-index: 1;
+  background-color: red;
+  border: none;
+  background-repeat: no-repeat;
+  fill: linear-gradient(270deg, #93000a 28.13%, rgba(210, 51, 51, 0) 100%),
+    linear-gradient(270deg, #93000a 28.13%);
+}
+.button-container {
+  position: relative;
+}
+
+.btn_bg_arrow {
+  background-color: rgba(255, 222, 50, 1);
+  border: none;
+  background-size: contain;
+  z-index: 1;
+}
+
+.background-div {
+  position: absolute;
+  top: 42%;
+  left: 19%;
+  width: 82%;
+  height: 16px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  background-color: #ffd27b;
+  box-shadow: 0px 2.5px 1px 0px rgba(178, 91, 11, 0.5);
+}
+.bgBookVe {
+  background-color: #bd000b;
+  position: absolute;
+  width: 70.2%;
+  height: 5%;
+  left: 14.7%;
+  margin-top: -10px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.ant-picker-input > input {
+  display: none;
+}
+
+.background-div-date {
+  position: absolute;
+  top: 29.8%;
+  left: 86%;
+  width: 9.8%;
+  height: 16px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  background-color: #ffd27b;
+  box-shadow: 0px 2.5px 1px 0px rgba(178, 91, 11, 0.5);
+}
+.datepicker {
+  margin-left: -10px;
+  padding-left: 15.3px;
+  padding-top: 19px;
+  margin-top: -5px;
+}
+.btn_date {
+  width: 32px;
+  height: 20px;
+  background-color: rgba(255, 222, 50, 1);
+  border: none;
+  outline: none;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+  margin: 12px 0px 0px 11px;
+}
+.btn_bg_date {
+  background-color: rgba(255, 222, 50, 1);
+  border: none;
+  background-size: contain;
+  z-index: 1;
+  width: 32px;
+  height: 20px;
+  position: absolute;
+  margin-top: 13px;
+  margin-left: 9px;
+}
+.InPutNameHome {
+  width: 92%;
+  margin: 13px 0px 0px 10px;
+  border-radius: 16;
+  background: #fff;
+  box-shadow: -1px 3px 3px 0px rgba(178, 91, 11, 0.5) inset;
+  border: none;
+  font-size: 12px;
+}
+.InPutPhoneHome {
+  width: 92%;
+  margin: 13px 0px 0px 10px;
+  border-radius: 16;
+  background: #fff;
+  box-shadow: -1px 3px 3px 0px rgba(178, 91, 11, 0.5) inset;
+  border: none;
+  font-size: 12px;
+}
+.InputMailHome {
+  width: 92%;
+  margin: 13px 0px 0px 10px;
+  border-radius: 16;
+  background: #fff;
+  box-shadow: -1px 3px 3px 0px rgba(178, 91, 11, 0.5) inset;
+  border: none;
+  font-size: 12px;
+}
+.InPutDateUsedHome {
+  width: 47%;
+  margin: 13px 0px 0px 10px;
+  border-radius: 16;
+  background: #fff;
+  box-shadow: -1px 3px 3px 0px rgba(178, 91, 11, 0.5) inset;
+  border: none;
+  font-size: 12px;
+}
+.InPutQuantityHome {
+  width: 30%;
+  margin: 13px 0px 0px 10px;
+  border-radius: 16;
+  background: #fff;
+  box-shadow: -1px 3px 3px 0px rgba(178, 91, 11, 0.5) inset;
+  border: none;
+  font-size: 12px;
+}
+.InPutGoiVeHome {
+  width: 80%;
+  margin: 0px 0px 0px 10px;
+  border-radius: 16;
+  background: #fff;
+  box-shadow: -1px 3px 3px 0px rgba(178, 91, 11, 0.5) inset;
+  border: none;
+  font-size: 12px;
+}
+.BgHomeMainRight {
+  position: relative;
+}
+.BgHomeMainRightLevel3 {
+  background-color: rgba(253, 232, 179, 1);
+  width: 39%;
+  height: 300px;
+  margin-left: 792.8px;
+  margin-top: -427px;
+  border-radius: 18px;
+  z-index: 1;
+  position: absolute;
+}
+.BgHomeMainRightLevel2 {
+  background-color: rgba(255, 246, 212, 1);
+  width: 94%;
+  height: 279px;
+  margin-top: 10px;
+  margin-left: 10px;
+  border: dashed 3px rgba(255, 180, 137, 1);
+  border-radius: 18px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  position: absolute;
+  z-index: 0;
+}
+.TextTopMainRight {
+  position: absolute;
+  margin: -40px 0px 0px -36px;
+  font-weight: 900;
+  color: #fff;
+}
+.InPutMainRightHome {
+  position: absolute;
+  display: flex;
+  width: 100%;
+  margin-top: -13px;
+}
+.TotalStartHome {
+  position: absolute;
+  margin: -280px 0px 0px 228px;
+  z-index: 1;
+  display: block;
+  line-height: 30px;
+}
+.TextStartHome1 {
+  font-size: 18px;
+  margin-top: 4px;
+  color: #23221f;
+  font-family: Montserrat;
+  opacity: 0.800000011920929;
+  font-weight: 700;
+  margin-left: 5px;
+}

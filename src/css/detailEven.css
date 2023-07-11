@@ -1,0 +1,85 @@
+.Bgbaoboc_detailEven {
+  position: relative;
+}
+.PaperEvenDetail {
+  position: absolute;
+  margin: -530px 0px 90px 0px;
+  padding-right: -30px;
+  z-index: 1;
+}
+.giayEvenDetailRight {
+  margin: -600px 0px 0px 894px;
+  transform: rotate(-6deg);
+  z-index: 3;
+  position: absolute;
+}
+.giayEvenDetailLeft {
+  margin: -954px 0px 0px -383px;
+  transform: rotate(1deg);
+}
+.TitleEvenDetail {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-top: 70px;
+  margin-left: 570px;
+  font-size: 40px;
+  color: #fff;
+}
+.bgLevel3DetailEvent {
+  background-color: rgba(253, 232, 179, 1);
+  width: 80%;
+  height: 370px;
+  margin-left: 124px;
+  margin-top: -436px;
+  border-radius: 18px;
+  z-index: 1;
+  position: absolute;
+}
+.bgLevel2DetailEvent {
+  background-color: rgba(255, 246, 212, 1);
+  width: 98.5%;
+  height: 360px;
+  margin-top: 5px;
+  margin-left: 8px;
+  border: dashed 3px rgba(255, 180, 137, 1);
+  border-radius: 18px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  position: absolute;
+  z-index: 0;
+}
+.Description1 {
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 0px;
+}
+.Description2 {
+  font-size: 12px;
+  margin-top: 10px;
+  font-weight: 700;
+}
+.Description3 {
+  font-size: 12px;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+.PdDetailEven {
+  padding: 30px 30px 0px 30px;
+}
+.DateEvensDetail {
+  display: flex;
+  margin-top: 20px;
+}
+.DateEvenDetail {
+  font-size: 13px;
+}
+.PriceEvenDetail {
+  font-size: 24px;
+  color: #fa7d09;
+  font-weight: 800;
+}
+.DescriptionEvenDetail {
+  font-size: 14px;
+  color: #6c7272;
+}

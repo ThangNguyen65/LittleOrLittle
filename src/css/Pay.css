@@ -305,3 +305,23 @@
   font-size: 15px;
   font-weight: 700;
 }
+.bgLevel4Phu3PayRight {
+  background-color: rgba(255, 202, 123, 1);
+  height: 50px;
+  width: 44.6%;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  margin-left: 778px;
+  margin-top: -437px;
+  position: absolute;
+}
+.bgLevel4Phu3PayLeft{
+  background-color: rgba(255, 202, 123, 1);
+  height: 50px;
+  width: 71.5%;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  margin-left: 130px;
+  margin-top: -412px;
+  position: absolute;
+}

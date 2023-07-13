@@ -1,4 +1,4 @@
-import { Button, DatePicker, Image, Input, Typography } from "antd";
+import { Button, DatePicker, Image, Typography } from "antd";
 import imageHome from "../../img/bg.png";
 import "../../front/index.css";
 import IconsDate from "../../img/home/date.svg";
@@ -6,15 +6,55 @@ import CotPay from "../../img/Vector.svg";
 import ImagePay from "../../img/pay/ImagePay.svg";
 import KhungBgRed from "../../img/pay/KhungPayMainBgRed.svg";
 import DuongVienChamTrangNho from "../../img/pay/DuongVienChamTrangNho.svg";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import dayjs from "dayjs";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { db } from "../../components/firebase";
 function PayBook() {
-  const [date, setDate] = useState("");
-  const datePickerRef = useRef();
+  const location = useLocation();
+  const { state } = location;
 
-  const handleDateChange = (e: any) => {
-    setDate(dayjs(e).format("DD/MM/YYYY"));
+  const [date, setDate] = useState("");
+  const [cardNumber, setCardNumber] = useState("");
+  const [cardHolder, setCardHolder] = useState("");
+  const [expirationDate, setExpirationDate] = useState("");
+  const [cvv, setCVV] = useState("");
+  const handleDateChange = (date: any) => {
+    const formattedDate = dayjs(date).format("DD/MM/YYYY");
+    setDate(formattedDate);
+  };
+
+  const handleFormSubmit = () => {
+    const userData = {
+      packageType: state.packageType,
+      quantity: state.quantity,
+      dateUsed: state.dateUsed,
+      fullName: state.fullName,
+      phoneNumber: state.phoneNumber,
+      email: state.email,
+      price: state.quantity * 120000,
+      cardNumber,
+      cardHolder,
+      expirationDate,
+      cvv,
+    };
+
+    db.collection("TicketBook")
+      .add(userData)
+      .then((docRef) => {
+        console.log("Đã thêm dữ liệu thành công:", docRef.id);
+        // Xử lý thành công, có thể thực hiện các hành động khác ở đây
+
+        // Xóa dữ liệu sau khi đặt vé thành công
+        setDate("");
+
+        // Điều hướng đến trang thanh toán thành công
+        // Thay thế '/paySuccess' bằng đường dẫn đến trang thanh toán thành công của bạn
+        window.location.href = "/paySuccess";
+      })
+      .catch((error) => {
+        console.error("Lỗi khi thêm dữ liệu:", error);
+      });
   };
   return (
     <div className="bg_home">
@@ -63,32 +103,63 @@ function PayBook() {
               <div className="PriceQuantityDate">
                 <div>
                   <h6 className="h6Pay">Số tiền thành toán</h6>
-                  <input type="text" className="PricePay" />
+                  <input
+                    type="text"
+                    className="PricePay"
+                    value={state.quantity * 120000}
+                    readOnly
+                  />
                 </div>
                 <div>
                   <h6 className="h6PayQT">Số lượng vé</h6>
-                  <input type="text" className="quantityPay" />
+                  <input
+                    type="text"
+                    className="quantityPay"
+                    value={state.quantity}
+                    readOnly
+                  />
                   <span className="ms-2">vé</span>
                 </div>
                 <div>
                   <h6 className="h6PayDate">Ngày sử dụng</h6>
-                  <input type="text" className="DatePay" />
+                  <input
+                    type="text"
+                    className="DatePay"
+                    value={state.dateUsed}
+                    readOnly
+                  />
                 </div>
               </div>
               <div className="InfoUserPay">
                 <h6 className="H6InfoUserPay">Thông tin liên hệ</h6>
-                <input type="text" className="InPutInfoUser" />
+                <input
+                  type="text"
+                  className="InPutInfoUser"
+                  value={state.fullName}
+                  readOnly
+                />
               </div>
               <div className="PhonePay">
                 <h6 className="H6PhonePay">Điện thoại</h6>
-                <input type="text" className="InPutPhonePay" />
+                <input
+                  type="text"
+                  className="InPutPhonePay"
+                  value={state.phoneNumber}
+                  readOnly
+                />
               </div>
               <div className="EmailPay">
                 <h6 className="H6EmailPay">Email</h6>
-                <input type="text" className="InPutEmailPay" />
+                <input
+                  type="text"
+                  className="InPutEmailPay"
+                  value={state.email}
+                  readOnly
+                />
               </div>
             </div>
           </div>
+          <div className="bgLevel4Phu3PayLeft"></div>
         </div>
         <div>
           <Image
@@ -179,6 +250,7 @@ function PayBook() {
               </div>
             </div>
           </div>
+          <div className="bgLevel4Phu3PayRight"></div>
         </div>
       </div>
     </div>

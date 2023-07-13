@@ -1,48 +1,76 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchData, selectData, selectLoading } from "../components/action";
-import { AppDispatch } from "../components/store";
-import { Image } from "antd";
+import React, { useState } from "react";
+import { Button, Input } from "antd";
+import dayjs from "dayjs";
+import "firebase/firestore";
+import { db } from "./firebase";
 
-const MyComponent: React.FC = () => {
-  const data = useSelector(selectData);
-  const loading = useSelector(selectLoading);
-  const dispatch: AppDispatch = useDispatch(); // Thay đổi kiểu dispatch
+const Home = () => {
+  const [quantity, setQuantity] = useState("");
+  const [dateUsed, setDateUsed] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [email, setEmail] = useState("");
 
-  useEffect(() => {
-    dispatch(fetchData());
-  }, [dispatch]);
+  const handleDateChange = (date: any) => {
+    setDateUsed(dayjs(date).format("DD/MM/YYYY"));
+  };
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  const handleFormSubmit = () => {
+    const userData = {
+      quantity,
+      dateUsed,
+      fullName,
+      phoneNumber,
+      email,
+    };
+
+    db.collection("TicketBook")
+      .add(userData)
+      .then((docRef) => {
+        console.log("Đã thêm dữ liệu thành công:", docRef.id);
+        // Xử lý thành công, có thể thực hiện các hành động khác ở đây
+      })
+      .catch((error) => {
+        console.error("Lỗi khi thêm dữ liệu:", error);
+        // Xử lý lỗi nếu cần
+      });
+  };
 
   return (
-    <div className="container" style={{ marginTop: "200px" }}>
-      <h2 className="text-uppercase mb-3">List Student</h2>
-      <table className="table table-striped table-hover">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Age</th>
-            <th>Image</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data &&
-            data.map((item, index) => (
-              <tr key={item.id}>
-                <td>{index + 1}</td>
-                <td>{item.name}</td>
-                <td>{item.price}</td>
-                {/* <td><Image src={item.image} /></td> */}
-              </tr>
-            ))}
-        </tbody>
-      </table>
+    <div>
+      <Input
+        placeholder="Số lượng vé"
+        value={quantity}
+        onChange={(e) => setQuantity(e.target.value)}
+      />
+
+      <input
+        type="date"
+        className="mt-3 mb-5 ms-5"
+        onChange={handleDateChange}
+      />
+
+      <Input
+        placeholder="Họ và tên"
+        value={fullName}
+        onChange={(e) => setFullName(e.target.value)}
+      />
+
+      <Input
+        placeholder="Số điện thoại"
+        value={phoneNumber}
+        onChange={(e) => setPhoneNumber(e.target.value)}
+      />
+
+      <Input
+        placeholder="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+
+      <Button onClick={handleFormSubmit}>Đặt vé</Button>
     </div>
   );
 };
 
-export default MyComponent;
+export default Home;

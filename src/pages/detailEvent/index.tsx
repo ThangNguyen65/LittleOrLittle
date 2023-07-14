@@ -6,7 +6,6 @@ import GiayEventRight from "../../img/even/LaCoRight.svg";
 import GiayEventLeft from "../../img/even/LaCoLeft.svg";
 import "../../css/detailEven.css";
 import IconsCalendar from "../../img/even/calendar.png";
-import Image2 from "../../img/even/ImageEven.svg";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchData,
@@ -14,7 +13,6 @@ import {
   selectError,
   selectLoading,
 } from "../../components/action";
-import { AppDispatch } from "../../components/store";
 import { useParams } from "react-router-dom";
 function MotaSuKien() {
   const { eventId } = useParams();

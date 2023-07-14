@@ -14,13 +14,15 @@ import KhinhKhiCau5 from "../../img/home/18451 [Converted]-04 1.png";
 import ChamKhungVeCuaBan from "../../img/home/ChamKhungVeCuaBan.png";
 import ArrowButtom from "../../img/home/arrowBottom.svg";
 import IconsDate from "../../img/home/date.svg";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import dayjs from "dayjs";
 import "../../front/index.css";
 import "../../css/Home.css";
-import { Link, useNavigate } from "react-router-dom";
-import { db } from "../../components/firebase";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../components/store";
+import { addData } from "../../components/Home/action";
 function Home() {
   const navigate = useNavigate();
   const [packageType, setPackageType] = useState("Gói Gia Đình");
@@ -29,70 +31,50 @@ function Home() {
   const [fullName, setFullName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
-  const [isFormValid, setIsFormValid] = useState(false);
+  const dispatch: AppDispatch = useDispatch();
   const handleDateChange = (date: any) => {
     const formattedDate = dayjs(date).format("DD/MM/YYYY");
     setDateUsed(formattedDate);
   };
-
-  const handleInputChange = (e: any) => {
-    const { name, value } = e.target;
-
-    if (name === "quantity") {
-      setQuantity(value);
-    } else if (name === "fullName") {
-      setFullName(value);
-    } else if (name === "phoneNumber") {
-      setPhoneNumber(value);
-    } else if (name === "email") {
-      setEmail(value);
-    }
-  };
-
-  useEffect(() => {
-    setIsFormValid(
-      quantity !== "" && fullName !== "" && phoneNumber !== "" && email !== ""
-    );
-  }, [quantity, fullName, phoneNumber, email]);
-  const handleFormSubmit = () => {
-    const userData = {
+  const handleNavigateToPay = () => {
+    const data = {
+      packageType,
       quantity,
       dateUsed,
       fullName,
       phoneNumber,
       email,
-      packageType,
     };
 
-    db.collection("TicketBook")
-      .add(userData)
-      .then((docRef) => {
-        console.log("Đã thêm dữ liệu thành công:", docRef.id);
-        // Xử lý thành công, có thể thực hiện các hành động khác ở đây
-
-        // Xóa dữ liệu sau khi đặt vé thành công
-        setQuantity("");
-        setFullName("");
-        setPhoneNumber("");
-        setEmail("");
-        setDateUsed("");
-
-        navigate("/pay", {
-          state: {
-            packageType,
-            quantity,
-            dateUsed,
-            fullName,
-            phoneNumber,
-            email,
-          },
-        });
-      })
-      .catch((error) => {
-        console.error("Lỗi khi thêm dữ liệu:", error);
-      });
-    localStorage.setItem("userData", JSON.stringify(userData));
+    navigate("/pay", { state: data });
   };
+  // const handleAddData = () => {
+  //   if (
+  //     packageType &&
+  //     quantity &&
+  //     dateUsed &&
+  //     fullName &&
+  //     phoneNumber &&
+  //     email
+  //   ) {
+  //     const newData = {
+  //       packageType,
+  //       dateUsed,
+  //       quantity: parseInt(quantity),
+  //       fullName,
+  //       phoneNumber: parseInt(phoneNumber),
+  //       email,
+  //     };
+  //     dispatch(addData(newData));
+  //     setPackageType("");
+  //     setQuantity("");
+  //     setDateUsed("");
+  //     setFullName("");
+  //     setPhoneNumber("");
+  //     setEmail("");
+  //     navigate("/pay", { state: newData });
+  //   }
+  // };
   return (
     <div className="bg_home">
       <Image
@@ -318,13 +300,14 @@ function Home() {
                   className="InPutQuantityHome"
                   placeholder="Số lượng vé"
                   value={quantity}
-                  onChange={handleInputChange}
+                  onChange={(e) => setQuantity(e.target.value)}
                 />
 
                 <Input
                   className="InPutDateUsedHome"
                   placeholder="Ngày sử dụng"
                   value={dateUsed}
+                  onChange={(e) => setQuantity(e.target.value)}
                 />
                 <div className="button-container-date">
                   <Button className="btn_bg_date">
@@ -356,7 +339,7 @@ function Home() {
                   name="fullName"
                   className="InPutNameHome"
                   value={fullName}
-                  onChange={handleInputChange}
+                  onChange={(e) => setFullName(e.target.value)}
                 />
               </div>
               <div>
@@ -366,7 +349,7 @@ function Home() {
                   name="phoneNumber"
                   className="InPutPhoneHome"
                   value={phoneNumber}
-                  onChange={handleInputChange}
+                  onChange={(e) => setPhoneNumber(e.target.value)}
                 />
               </div>
               <div>
@@ -381,13 +364,9 @@ function Home() {
               </div>
               <div className="">
                 {/* <Link to={`/pay`}> */}
-                  <Button
-                    className="ButtonKhung"
-                    onClick={handleFormSubmit}
-                    disabled={!isFormValid}
-                  >
-                    Đặt vé
-                  </Button>
+                <Button className="ButtonKhung" onClick={handleNavigateToPay}>
+                  Đặt vé
+                </Button>
                 {/* </Link> */}
                 <div className="bgBookVe"></div>
               </div>

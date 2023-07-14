@@ -66,6 +66,7 @@ export const fetchData = createAsyncThunk("data/fetchData", async () => {
   });
   return dataList;
 });
+
 const dataSlice = createSlice({
   name: "data",
   initialState,

@@ -1,15 +1,96 @@
-import { Button, Card, Image, Typography } from "antd";
-import React from "react";
+import { Button, Card, Image, Space, Typography } from "antd";
+import React, { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import imageHome from "../../img/bg.png";
 import ImagePaySuccess from "../../img/paysuccess/ImagePaySuccsess.svg";
-import QRCode from "../../img/paysuccess/QRCodePaySuccess.svg";
 import TickXanh from "../../img/paysuccess/TickXanh.svg";
 import ArrowLeft from "../../img/even/ArrowLeft.svg";
 import ArrowRight from "../../img/even/ArrowRight.svg";
 import "../../front/index.css";
 import "../../css/PaySuccess.css";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchQuantityById } from "../../components/Home/paySuccessSlice";
+import { unwrapResult } from "@reduxjs/toolkit";
 
 function PSuccess() {
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const id = queryParams.get("id");
+  const quantity = useSelector((state: any) => state.paySuccess.quantity);
+  const dateUsed = useSelector((state: any) => state.paySuccess.dateUsed);
+  const image = useSelector((state: any) => state.paySuccess.image);
+
+  const namePaySuccess = useSelector(
+    (state: any) => state.paySuccess.namePaySuccess
+  );
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchQuantityById(id) as any)
+        .then(unwrapResult)
+        .catch((error: any) => {
+          console.error("Error fetching quantity:", error);
+        });
+    }
+  }, [dispatch, id]);
+
+  const renderCards = (quantity: number) => {
+    return Array.from({ length: quantity }).map((_, index) => (
+      <Card
+        key={index}
+        cover={
+          <Image
+            src={image}
+            preview={false}
+            width={"40%"}
+            style={{
+              margin: "20px 0px 0px 57px",
+            }}
+          />
+        }
+        style={{
+          height: "273px",
+          width: "200px",
+          marginLeft: "15px",
+        }}
+      >
+        <h5 className="H5PaySuccess">{namePaySuccess}</h5>
+        <Typography
+          style={{
+            color: "#FFC226",
+            margin: "0px 0px 0px 40px",
+            fontWeight: "700",
+          }}
+        >
+          VÉ CỔNG
+        </Typography>
+        <Typography
+          style={{
+            margin: "0px 0px 0px 60px",
+            fontWeight: "900",
+          }}
+        >
+          ---
+        </Typography>
+        <Typography.Text
+          style={{
+            fontSize: "12px",
+          }}
+        >
+          Ngày sử dụng: {dateUsed}
+        </Typography.Text>
+        <Image
+          src={TickXanh}
+          width={"20%"}
+          preview={false}
+          style={{
+            margin: "22px 0px 0px 54px",
+          }}
+        />
+      </Card>
+    ));
+  };
+
   return (
     <div className="bg_home">
       <Image
@@ -55,215 +136,21 @@ function PSuccess() {
                 </div>
               </div>
               <div className="col-lg-10">
-                <div className="row mt-2">
-                  <div className="col-lg-3">
-                    <Card
-                      cover={
-                        <Image
-                          src={QRCode}
-                          preview={false}
-                          width={"40%"}
-                          style={{
-                            margin: "20px 0px 0px 57px",
-                          }}
-                        />
-                      }
-                      style={{
-                        height: "273px",
-                      }}
-                    >
-                      <h5 className="H5PaySuccess">ALT20210501</h5>
-                      <Typography
-                        style={{
-                          color: "#FFC226",
-                          margin: "0px 0px 0px 40px",
-                          fontWeight: "700",
-                        }}
-                      >
-                        VÉ CỔNG
-                      </Typography>
-                      <Typography
-                        style={{
-                          margin: "0px 0px 0px 60px",
-                          fontWeight: "900",
-                        }}
-                      >
-                        ---
-                      </Typography>
-                      <Typography.Text
-                        style={{
-                          fontSize: "12px",
-                        }}
-                      >
-                        Ngày sử dụng: 31/05/2021
-                      </Typography.Text>
-                      <Image
-                        src={TickXanh}
-                        width={"20%"}
-                        preview={false}
-                        style={{
-                          margin: "22px 0px 0px 54px",
-                        }}
-                      />
-                    </Card>
-                  </div>
-                  <div className="col-lg-3">
-                    <Card
-                      cover={
-                        <Image
-                          src={QRCode}
-                          preview={false}
-                          width={"40%"}
-                          style={{
-                            margin: "20px 0px 0px 57px",
-                          }}
-                        />
-                      }
-                      style={{
-                        height: "273px",
-                      }}
-                    >
-                      <h5 className="H5PaySuccess">ALT20210501</h5>
-                      <Typography
-                        style={{
-                          color: "#FFC226",
-                          margin: "0px 0px 0px 40px",
-                          fontWeight: "700",
-                        }}
-                      >
-                        VÉ CỔNG
-                      </Typography>
-                      <Typography
-                        style={{
-                          margin: "0px 0px 0px 60px",
-                          fontWeight: "900",
-                        }}
-                      >
-                        ---
-                      </Typography>
-                      <Typography.Text
-                        style={{
-                          fontSize: "12px",
-                        }}
-                      >
-                        Ngày sử dụng: 31/05/2021
-                      </Typography.Text>
-                      <Image
-                        src={TickXanh}
-                        width={"20%"}
-                        preview={false}
-                        style={{
-                          margin: "22px 0px 0px 54px",
-                        }}
-                      />
-                    </Card>
-                  </div>
-                  <div className="col-lg-3">
-                    <Card
-                      cover={
-                        <Image
-                          src={QRCode}
-                          preview={false}
-                          width={"40%"}
-                          style={{
-                            margin: "20px 0px 0px 57px",
-                          }}
-                        />
-                      }
-                      style={{
-                        height: "273px",
-                      }}
-                    >
-                      <h5 className="H5PaySuccess">ALT20210501</h5>
-                      <Typography
-                        style={{
-                          color: "#FFC226",
-                          margin: "0px 0px 0px 40px",
-                          fontWeight: "700",
-                        }}
-                      >
-                        VÉ CỔNG
-                      </Typography>
-                      <Typography
-                        style={{
-                          margin: "0px 0px 0px 60px",
-                          fontWeight: "900",
-                        }}
-                      >
-                        ---
-                      </Typography>
-                      <Typography.Text
-                        style={{
-                          fontSize: "12px",
-                        }}
-                      >
-                        Ngày sử dụng: 31/05/2021
-                      </Typography.Text>
-                      <Image
-                        src={TickXanh}
-                        width={"20%"}
-                        preview={false}
-                        style={{
-                          margin: "22px 0px 0px 54px",
-                        }}
-                      />
-                    </Card>
-                  </div>
-                  <div className="col-lg-3">
-                    <Card
-                      cover={
-                        <Image
-                          src={QRCode}
-                          preview={false}
-                          width={"40%"}
-                          style={{
-                            margin: "20px 0px 0px 57px",
-                          }}
-                        />
-                      }
-                      style={{
-                        height: "273px",
-                      }}
-                    >
-                      <h5 className="H5PaySuccess">ALT20210501</h5>
-                      <Typography
-                        style={{
-                          color: "#FFC226",
-                          margin: "0px 0px 0px 40px",
-                          fontWeight: "700",
-                        }}
-                      >
-                        VÉ CỔNG
-                      </Typography>
-                      <Typography
-                        style={{
-                          margin: "0px 0px 0px 60px",
-                          fontWeight: "900",
-                        }}
-                      >
-                        ---
-                      </Typography>
-                      <Typography.Text
-                        style={{
-                          fontSize: "12px",
-                        }}
-                      >
-                        Ngày sử dụng: 31/05/2021
-                      </Typography.Text>
-                      <Image
-                        src={TickXanh}
-                        width={"20%"}
-                        preview={false}
-                        style={{
-                          margin: "22px 0px 0px 54px",
-                        }}
-                      />
-                    </Card>
-                  </div>
-                </div>
+                <Space
+                  style={{
+                    marginLeft: "-10px",
+                    marginTop: "8px",
+                    overflow: "hidden",
+                    width: "103%",
+                  }}
+                  id="cardContainer"
+                >
+                  {renderCards(quantity)}
+                </Space>
+
                 <div className="row mt-2">
                   <div className="col-lg-6">
-                    <p>Số lượng vé: 12 vé</p>
+                    <p>Số lượng vé: {quantity} vé</p>
                   </div>
                   <div className="col-lg-6 text-end">
                     <p>Trang 1/3</p>

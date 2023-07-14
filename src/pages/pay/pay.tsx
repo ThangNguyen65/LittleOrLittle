@@ -8,53 +8,56 @@ import KhungBgRed from "../../img/pay/KhungPayMainBgRed.svg";
 import DuongVienChamTrangNho from "../../img/pay/DuongVienChamTrangNho.svg";
 import { useState } from "react";
 import dayjs from "dayjs";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { db } from "../../components/firebase";
+
 function PayBook() {
   const location = useLocation();
   const { state } = location;
-
-  const [date, setDate] = useState("");
+  const navigate = useNavigate();
   const [cardNumber, setCardNumber] = useState("");
   const [cardHolder, setCardHolder] = useState("");
   const [expirationDate, setExpirationDate] = useState("");
   const [cvv, setCVV] = useState("");
+
   const handleDateChange = (date: any) => {
     const formattedDate = dayjs(date).format("DD/MM/YYYY");
-    setDate(formattedDate);
+    setExpirationDate(formattedDate);
   };
+  const handleAddData = () => {
+    if (cardNumber && cardHolder && expirationDate && cvv) {
+      const ticketData = {
+        packageType: state.packageType,
+        quantity: state.quantity,
+        dateUsed: state.dateUsed,
+        fullName: state.fullName,
+        phoneNumber: state.phoneNumber,
+        email: state.email,
+        price: state.quantity * 120,
+        cardNumber,
+        cardHolder,
+        expirationDate,
+        cvv,
+        image:
+          "https://firebasestorage.googleapis.com/v0/b/little-and-little-29a59.appspot.com/o/QRCodePaySuccess.svg?alt=media&token=3ca529ef-59ba-4781-b45f-842b385345c9",
+        namePaySuccess: "ALT20210501",
+      };
 
-  const handleFormSubmit = () => {
-    const userData = {
-      packageType: state.packageType,
-      quantity: state.quantity,
-      dateUsed: state.dateUsed,
-      fullName: state.fullName,
-      phoneNumber: state.phoneNumber,
-      email: state.email,
-      price: state.quantity * 120000,
-      cardNumber,
-      cardHolder,
-      expirationDate,
-      cvv,
-    };
+      db.collection("TicketBook")
+        .add(ticketData)
+        .then((docRef) => {
+          const id = docRef.id;
+          setCardNumber("");
+          setCardHolder("");
+          setExpirationDate("");
+          setCVV("");
 
-    db.collection("TicketBook")
-      .add(userData)
-      .then((docRef) => {
-        console.log("Đã thêm dữ liệu thành công:", docRef.id);
-        // Xử lý thành công, có thể thực hiện các hành động khác ở đây
-
-        // Xóa dữ liệu sau khi đặt vé thành công
-        setDate("");
-
-        // Điều hướng đến trang thanh toán thành công
-        // Thay thế '/paySuccess' bằng đường dẫn đến trang thanh toán thành công của bạn
-        window.location.href = "/paySuccess";
-      })
-      .catch((error) => {
-        console.error("Lỗi khi thêm dữ liệu:", error);
-      });
+          navigate(`/paySuccess?id=${id}&quantity=${state.quantity}`);
+        })
+        .catch((error) => {
+          console.error("Lỗi khi lưu thông tin thanh toán:", error);
+        });
+    }
   };
   return (
     <div className="bg_home">
@@ -106,7 +109,7 @@ function PayBook() {
                   <input
                     type="text"
                     className="PricePay"
-                    value={state.quantity * 120000}
+                    value={(state.quantity * 120).toFixed(3)}
                     readOnly
                   />
                 </div>
@@ -192,11 +195,21 @@ function PayBook() {
               <div className="InfoPay">
                 <div>
                   <h6 className="mt-1 H6NumberCard">Số thẻ</h6>
-                  <input type="text" className="InPutNumberCard" />
+                  <input
+                    type="text"
+                    className="InPutNumberCard"
+                    value={cardNumber}
+                    onChange={(e) => setCardNumber(e.target.value)}
+                  />
                 </div>
                 <div>
                   <h6 className="mt-1 H6NumberCard">Họ tên chủ thẻ</h6>
-                  <input type="text" className="InPutNamePay" />
+                  <input
+                    type="text"
+                    className="InPutNamePay"
+                    value={cardHolder}
+                    onChange={(e) => setCardHolder(e.target.value)}
+                  />
                 </div>
                 <div>
                   <h6 className="mt-1 H6NumberCard">Ngày hết hạn</h6>
@@ -208,7 +221,8 @@ function PayBook() {
                     <input
                       type="text"
                       className="InputExpirationDate"
-                      value={date}
+                      value={expirationDate}
+                      onChange={(e) => setExpirationDate(e.target.value)}
                     />
                     <div className="button-container-date">
                       <Button className="btn_bg_date_pay">
@@ -237,14 +251,22 @@ function PayBook() {
                 </div>
                 <div>
                   <h6 className="mt-1 H6NumberCard">CVV/CVC</h6>
-                  <input type="text" className="InputCVVCVC" />
+                  <input
+                    type="text"
+                    className="InputCVVCVC"
+                    value={cvv}
+                    onChange={(e) => setCVV(e.target.value)}
+                  />
                 </div>
                 <div>
-                  <Link to={`/paySuccess`}>
-                    <Button className="bold-park btn_Button_Pay">
-                      Thanh Toán
-                    </Button>
-                  </Link>
+                  {/* <Link to={`/paySuccess?quantity=${state.quantity}`}> */}
+                  <Button
+                    className="bold-park btn_Button_Pay"
+                    onClick={handleAddData}
+                  >
+                    Thanh Toán
+                  </Button>
+                  {/* </Link> */}
                   <div className="bg_btnContactBottom_pay"></div>
                 </div>
               </div>

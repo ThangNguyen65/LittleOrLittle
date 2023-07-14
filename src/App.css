@@ -20,6 +20,7 @@ body {
 .contact {
   margin: 0px 0px 0px 0px;
   padding: 5px 10px;
+  opacity: 0.800000011920929;
   color: #fff;
   text-decoration: none;
 }
@@ -29,6 +30,8 @@ body {
   border: 1.8px solid #fff;
   padding: 3px 15px;
   border-radius: 18px;
+  color: #fff;
+  opacity: 1;
 }
 
 .textNav {

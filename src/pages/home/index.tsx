@@ -37,45 +37,8 @@ function Home() {
     const formattedDate = dayjs(date).format("DD/MM/YYYY");
     setDateUsed(formattedDate);
   };
-  // const handleAddData = async () => {
-  //   if (
-  //     packageType &&
-  //     quantity &&
-  //     dateUsed &&
-  //     fullName &&
-  //     phoneNumber &&
-  //     email
-  //   ) {
-  //     const newData = {
-  //       packageType,
-  //       quantity: parseInt(quantity),
-  //       dateUsed,
-  //       fullName,
-  //       phoneNumber: parseInt(phoneNumber),
-  //       email,
-  //     };
 
-  //     try {
-  //       // Gọi action addData để cập nhật dữ liệu và nhận kết quả trả về
-  //       const updatedData = await dispatch(addData(newData) as any);
-
-  //       setPackageType("");
-  //       setQuantity("");
-  //       setDateUsed("");
-  //       setFullName("");
-  //       setPhoneNumber("");
-  //       setEmail("");
-
-  //       // Truy xuất ID mới từ dữ liệu đã cập nhật
-  //       const newId = updatedData[updatedData.length - 1].id;
-
-  //       navigate(`/pay`, { state: { ...newData, id: newId } });
-  //     } catch (error) {
-  //       // Xử lý lỗi nếu có
-  //     }
-  //   }
-  // };
-  const handleAddData = async () => {
+  const handleAddData = () => {
     if (
       packageType &&
       quantity &&
@@ -93,39 +56,18 @@ function Home() {
         email,
       };
 
-      try {
-        // Gọi action addData để cập nhật dữ liệu và nhận kết quả trả về
-        const updatedData = await dispatch(addData(newData) as any);
+      dispatch(addData(newData) as any);
 
-        setPackageType("");
-        setQuantity("");
-        setDateUsed("");
-        setFullName("");
-        setPhoneNumber("");
-        setEmail("");
-
-        // Truy xuất ID mới từ dữ liệu đã cập nhật
-        const newId = updatedData.payload[updatedData.payload.length - 1].id;
-
-        navigate(`/pay/${newId}`, { state: { ...newData, id: newId } });
-      } catch (error) {
-        // Xử lý lỗi nếu có
-      }
+      setPackageType("");
+      setQuantity("");
+      setDateUsed("");
+      setFullName("");
+      setPhoneNumber("");
+      setEmail("");
+      navigate("/pay", { state: { ...newData, id: "newId" } });
     }
   };
 
-  // const handleNavigateToPay = () => {
-  //   const data = {
-  //     packageType,
-  //     quantity,
-  //     dateUsed,
-  //     fullName,
-  //     phoneNumber,
-  //     email,
-  //   };
-
-  //   navigate("/pay", { state: data });
-  // };
   return (
     <div className="bg_home">
       <Image

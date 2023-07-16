@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
-import { db } from "../firebase";
 
 interface TicketBook {
   id: string;
@@ -25,26 +24,10 @@ const initialState: DataState = {
 
 export const addData = createAsyncThunk(
   "data/addData",
-  async (newData: Omit<TicketBook, "id">, { getState }) => {
-    const { data } = (getState() as RootState).data;
-    const newId = Date.now().toString();
-    const updatedData = [...data, { ...newData, id: newId }];
-
-    try {
-      // Cập nhật dữ liệu trong Firestore
-      await db
-        .collection("TicketBook")
-        .doc(newId)
-        .set({ ...newData, id: newId });
-
-      // Trả về dữ liệu đã được cập nhật bao gồm ID mới
-      return updatedData;
-    } catch (error) {
-      throw error;
-    }
+  (newData: Omit<TicketBook, "id">) => {
+    return newData;
   }
 );
-
 const dataSlice = createSlice({
   name: "data",
   initialState,

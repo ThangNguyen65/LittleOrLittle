@@ -1,7 +1,23 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import { db } from "../firebase";
-import { Pay } from "../TypeTicketBook";
+
+interface Pay {
+  id: string;
+  packageType: string;
+  quantity: number;
+  dateUsed: string;
+  fullName: string;
+  phoneNumber: number;
+  email: string;
+  cardNumber: string;
+  cardHolder: string;
+  expirationDate: string;
+  cvv: string;
+  price: number;
+  image: string;
+  namePaySuccess: string;
+}
 
 interface DataState {
   data: Pay[];
@@ -27,21 +43,9 @@ export const addData = createAsyncThunk(
       await db.collection("TicketBook").doc(newId).set(newData);
 
       // Trả về dữ liệu đã được cập nhật
-      return updatedData as Pay[];
+      return updatedData;
     } catch (error) {
       throw error;
-    }
-  }
-);
-export const updateData = createAsyncThunk(
-  "data/updateData",
-  async (updatedData: Pay) => {
-    try {
-      const { id, ...dataWithoutId } = updatedData;
-      await db.collection("TicketBook").doc(id).update(dataWithoutId);
-      return updatedData as Pay;
-    } catch (error) {
-      throw new Error("Failed to update data.");
     }
   }
 );
@@ -56,31 +60,12 @@ const dataSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      .addCase(addData.fulfilled, (state, action) => {
+      .addCase(addData.fulfilled, (state: any, action) => {
         state.data = action.payload;
         state.loading = false;
         state.error = null;
       })
       .addCase(addData.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message || "Error occurred";
-      })
-      .addCase(updateData.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(updateData.fulfilled, (state, action) => {
-        const updatedData = action.payload;
-        const index = state.data.findIndex(
-          (item) => item.id === updatedData.id
-        );
-        if (index !== -1) {
-          state.data[index] = updatedData;
-        }
-        state.loading = false;
-        state.error = null;
-      })
-      .addCase(updateData.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || "Error occurred";
       });

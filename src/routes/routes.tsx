@@ -12,7 +12,7 @@ function Routess() {
       <Route path="/" element={<Home />} />
       <Route path="/sukien" element={<Even />} />
       <Route path="/lienhe" element={<Contact />} />
-      <Route path="/pay" element={<PayBook />} />
+      <Route path="/pay/:id" element={<PayBook />} />
       <Route path="/paySuccess" element={<PSuccess />} />
       <Route path="/test" element={<MyComponent />} />
       <Route path="/event/:eventId" element={<MotaSuKien />} />

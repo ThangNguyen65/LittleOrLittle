@@ -19,46 +19,45 @@ function PayBook() {
   const [cardHolder, setCardHolder] = useState("");
   const [expirationDate, setExpirationDate] = useState("");
   const [cvv, setCVV] = useState("");
-
   const handleDateChange = (date: any) => {
     const formattedDate = dayjs(date).format("DD/MM/YYYY");
     setExpirationDate(formattedDate);
   };
-  const handleAddData = () => {
-    if (cardNumber && cardHolder && expirationDate && cvv) {
-      const ticketData = {
-        packageType: state.packageType,
-        quantity: state.quantity,
-        dateUsed: state.dateUsed,
-        fullName: state.fullName,
-        phoneNumber: state.phoneNumber,
-        email: state.email,
-        price: state.quantity * 120,
-        cardNumber,
-        cardHolder,
-        expirationDate,
-        cvv,
-        image:
-          "https://firebasestorage.googleapis.com/v0/b/little-and-little-29a59.appspot.com/o/QRCodePaySuccess.svg?alt=media&token=3ca529ef-59ba-4781-b45f-842b385345c9",
-        namePaySuccess: "ALT20210501",
-      };
+  // const handleAddData = () => {
+  //   if (cardNumber && cardHolder && expirationDate && cvv) {
+  //     const ticketData = {
+  //       packageType: state.packageType,
+  //       quantity: state.quantity,
+  //       dateUsed: state.dateUsed,
+  //       fullName: state.fullName,
+  //       phoneNumber: state.phoneNumber,
+  //       email: state.email,
+  //       price: state.quantity * 120,
+  //       cardNumber,
+  //       cardHolder,
+  //       expirationDate,
+  //       cvv,
+  //       image:
+  //         "https://firebasestorage.googleapis.com/v0/b/little-and-little-29a59.appspot.com/o/QRCodePaySuccess.svg?alt=media&token=3ca529ef-59ba-4781-b45f-842b385345c9",
+  //       namePaySuccess: "ALT20210501",
+  //     };
 
-      db.collection("TicketBook")
-        .add(ticketData)
-        .then((docRef) => {
-          const id = docRef.id;
-          setCardNumber("");
-          setCardHolder("");
-          setExpirationDate("");
-          setCVV("");
+  //     db.collection("TicketBook")
+  //       .add(ticketData)
+  //       .then((docRef) => {
+  //         const id = docRef.id;
+  //         setCardNumber("");
+  //         setCardHolder("");
+  //         setExpirationDate("");
+  //         setCVV("");
 
-          navigate(`/paySuccess?id=${id}&quantity=${state.quantity}`);
-        })
-        .catch((error) => {
-          console.error("Lỗi khi lưu thông tin thanh toán:", error);
-        });
-    }
-  };
+  //         navigate(`/paySuccess?id=${id}&quantity=${state.quantity}`);
+  //       })
+  //       .catch((error) => {
+  //         console.error("Lỗi khi lưu thông tin thanh toán:", error);
+  //       });
+  //   }
+  // };
   return (
     <div className="bg_home">
       <Image

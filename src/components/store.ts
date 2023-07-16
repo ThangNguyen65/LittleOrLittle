@@ -1,10 +1,12 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import dataReducer from "../components/action";
-import paySuccessReducer from "../components/Home/paySuccessSlice";
+import paySuccessReducer from "./paySuccess/paySuccessSlice";
+import Pay from "./pay/actionPay";
 const store = configureStore({
   reducer: {
     data: dataReducer,
     paySuccess: paySuccessReducer,
+    pay: Pay,
   },
 });
 

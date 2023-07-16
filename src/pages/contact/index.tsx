@@ -83,8 +83,6 @@ function Contact() {
                   <span
                     style={{
                       color: "orange",
-                      marginTop: "-20px",
-                      marginLeft: "13px",
                       fontSize: "30px",
                     }}
                   >

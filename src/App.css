@@ -47,7 +47,7 @@ body {
   justify-content: center;
   color: white;
 }
-.contact {
+.contactPhone {
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -55,7 +55,6 @@ body {
   width: auto;
   height: auto;
 }
-
 .phoneContact {
   font-size: 15px;
   font-style: normal;

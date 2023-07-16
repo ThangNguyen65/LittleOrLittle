@@ -21,34 +21,23 @@ import "../../front/index.css";
 import "../../css/Home.css";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../components/store";
 import { addData } from "../../components/Home/action";
+
 function Home() {
   const navigate = useNavigate();
+
   const [packageType, setPackageType] = useState("Gói Gia Đình");
   const [quantity, setQuantity] = useState("");
   const [dateUsed, setDateUsed] = useState("");
   const [fullName, setFullName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch = useDispatch();
   const handleDateChange = (date: any) => {
     const formattedDate = dayjs(date).format("DD/MM/YYYY");
     setDateUsed(formattedDate);
   };
-  const handleNavigateToPay = () => {
-    const data = {
-      packageType,
-      quantity,
-      dateUsed,
-      fullName,
-      phoneNumber,
-      email,
-    };
-
-    navigate("/pay", { state: data });
-  };
-  // const handleAddData = () => {
+  // const handleAddData = async () => {
   //   if (
   //     packageType &&
   //     quantity &&
@@ -59,21 +48,83 @@ function Home() {
   //   ) {
   //     const newData = {
   //       packageType,
-  //       dateUsed,
   //       quantity: parseInt(quantity),
+  //       dateUsed,
   //       fullName,
   //       phoneNumber: parseInt(phoneNumber),
   //       email,
   //     };
-  //     dispatch(addData(newData));
-  //     setPackageType("");
-  //     setQuantity("");
-  //     setDateUsed("");
-  //     setFullName("");
-  //     setPhoneNumber("");
-  //     setEmail("");
-  //     navigate("/pay", { state: newData });
+
+  //     try {
+  //       // Gọi action addData để cập nhật dữ liệu và nhận kết quả trả về
+  //       const updatedData = await dispatch(addData(newData) as any);
+
+  //       setPackageType("");
+  //       setQuantity("");
+  //       setDateUsed("");
+  //       setFullName("");
+  //       setPhoneNumber("");
+  //       setEmail("");
+
+  //       // Truy xuất ID mới từ dữ liệu đã cập nhật
+  //       const newId = updatedData[updatedData.length - 1].id;
+
+  //       navigate(`/pay`, { state: { ...newData, id: newId } });
+  //     } catch (error) {
+  //       // Xử lý lỗi nếu có
+  //     }
   //   }
+  // };
+  const handleAddData = async () => {
+    if (
+      packageType &&
+      quantity &&
+      dateUsed &&
+      fullName &&
+      phoneNumber &&
+      email
+    ) {
+      const newData = {
+        packageType,
+        quantity: parseInt(quantity),
+        dateUsed,
+        fullName,
+        phoneNumber: parseInt(phoneNumber),
+        email,
+      };
+
+      try {
+        // Gọi action addData để cập nhật dữ liệu và nhận kết quả trả về
+        const updatedData = await dispatch(addData(newData) as any);
+
+        setPackageType("");
+        setQuantity("");
+        setDateUsed("");
+        setFullName("");
+        setPhoneNumber("");
+        setEmail("");
+
+        // Truy xuất ID mới từ dữ liệu đã cập nhật
+        const newId = updatedData.payload[updatedData.payload.length - 1].id;
+
+        navigate(`/pay/${newId}`, { state: { ...newData, id: newId } });
+      } catch (error) {
+        // Xử lý lỗi nếu có
+      }
+    }
+  };
+
+  // const handleNavigateToPay = () => {
+  //   const data = {
+  //     packageType,
+  //     quantity,
+  //     dateUsed,
+  //     fullName,
+  //     phoneNumber,
+  //     email,
+  //   };
+
+  //   navigate("/pay", { state: data });
   // };
   return (
     <div className="bg_home">
@@ -362,12 +413,10 @@ function Home() {
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
-              <div className="">
-                {/* <Link to={`/pay`}> */}
-                <Button className="ButtonKhung" onClick={handleNavigateToPay}>
+              <div>
+                <Button className="ButtonKhung" onClick={handleAddData}>
                   Đặt vé
                 </Button>
-                {/* </Link> */}
                 <div className="bgBookVe"></div>
               </div>
             </div>

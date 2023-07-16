@@ -6,7 +6,6 @@ export const fetchQuantityById = createAsyncThunk(
   "paySuccess/fetchQuantityById",
   async (id: string) => {
     try {
-      // Gọi Firebase và lấy dữ liệu tương ứng với id
       const docRef = db.collection("TicketBook").doc(id);
       const doc = await docRef.get();
       const quantity = doc.exists ? doc.data()?.quantity : undefined;
@@ -15,10 +14,8 @@ export const fetchQuantityById = createAsyncThunk(
       const namePaySuccess = doc.exists
         ? doc.data()?.namePaySuccess
         : undefined;
-      // Trả về quantity và dateUsed cho payload của action
       return { quantity, dateUsed, image, namePaySuccess };
     } catch (error) {
-      // Xử lý lỗi nếu có
       console.error("Error fetching quantity from Firebase:", error);
       throw error;
     }

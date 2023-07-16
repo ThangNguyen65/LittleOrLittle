@@ -17,19 +17,22 @@ const initialState: DataState = {
 
 export const addData = createAsyncThunk(
   "data/addData",
-  async (newData: Omit<Pay, "id"> & { id: string }, { getState }) => {
+  async (newData: Omit<Pay, "id">, { getState }) => {
     const { data } = (getState() as RootState).data;
+    const newId = Date.now().toString();
+    const updatedData = [...data, { ...newData, id: newId }];
 
     try {
-      await db.collection("TicketBook").doc(newData.id).set(newData);
-      const updatedData = [...data, newData];
+      // Cập nhật dữ liệu trong Firestore
+      await db.collection("TicketBook").doc(newId).set(newData);
+
+      // Trả về dữ liệu đã được cập nhật
       return updatedData as Pay[];
     } catch (error) {
       throw error;
     }
   }
 );
-
 export const updateData = createAsyncThunk(
   "data/updateData",
   async (updatedData: Pay) => {

@@ -49,7 +49,7 @@ function NavBar() {
                   Liên hệ
                 </Link>
               </div>
-              <div className="contact">
+              <div className="contactPhone">
                 <Image src={IconsPhone} preview={false} width={"20%"} />
                 <p className="phoneContact">0123456789</p>
               </div>

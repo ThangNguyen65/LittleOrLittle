@@ -1,8 +1,16 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import { db } from "../firebase";
-import { TicketBook } from "../TypeTicketBook";
 
+interface TicketBook {
+  id: string;
+  packageType: string;
+  quantity: number;
+  dateUsed: string;
+  fullName: string;
+  phoneNumber: number;
+  email: string;
+}
 interface DataState {
   data: TicketBook[];
   loading: boolean;
@@ -23,23 +31,16 @@ export const addData = createAsyncThunk(
     const updatedData = [...data, { ...newData, id: newId }];
 
     try {
-      await db.collection("TicketBook").doc(newId).set(newData);
-      return updatedData as TicketBook[];
+      // Cập nhật dữ liệu trong Firestore
+      await db
+        .collection("TicketBook")
+        .doc(newId)
+        .set({ ...newData, id: newId });
+
+      // Trả về dữ liệu đã được cập nhật bao gồm ID mới
+      return updatedData;
     } catch (error) {
       throw error;
-    }
-  }
-);
-
-export const updateData = createAsyncThunk(
-  "data/updateData",
-  async (updatedData: TicketBook) => {
-    try {
-      const { id, ...dataWithoutId } = updatedData;
-      await db.collection("TicketBook").doc(id).update(dataWithoutId);
-      return updatedData as TicketBook;
-    } catch (error) {
-      throw new Error("Failed to update data.");
     }
   }
 );
@@ -54,31 +55,12 @@ const dataSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      .addCase(addData.fulfilled, (state, action) => {
+      .addCase(addData.fulfilled, (state: any, action) => {
         state.data = action.payload;
         state.loading = false;
         state.error = null;
       })
       .addCase(addData.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message || "Error occurred";
-      })
-      .addCase(updateData.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(updateData.fulfilled, (state, action) => {
-        const updatedData = action.payload;
-        const index = state.data.findIndex(
-          (item) => item.id === updatedData.id
-        );
-        if (index !== -1) {
-          state.data[index] = updatedData;
-        }
-        state.loading = false;
-        state.error = null;
-      })
-      .addCase(updateData.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || "Error occurred";
       });

@@ -79,12 +79,18 @@ function PayBook() {
           "https://firebasestorage.googleapis.com/v0/b/little-and-little-29a59.appspot.com/o/QRCodePaySuccess.svg?alt=media&token=3ca529ef-59ba-4781-b45f-842b385345c9",
         namePaySuccess: "ALT20210501",
       };
-      dispatch(addData(ticketData) as any);
-      setCardNumber("");
-      setCardHolder("");
-      setExpirationDate("");
-      setCVV("");
-      navigate(`/paySuccess?id=&quantity=${state.quantity}`);
+      dispatch(addData(ticketData) as any)
+        .unwrap()
+        .then((id: string) => {
+          setCardNumber("");
+          setCardHolder("");
+          setExpirationDate("");
+          setCVV("");
+          navigate(`/paySuccess?id=${id}&quantity=${state.quantity}`);
+        })
+        .catch((error: any) => {
+          console.error("Lỗi khi lưu thông tin thanh toán:", error);
+        });
     }
   };
   return (

@@ -11,35 +11,21 @@ import "../../css/PaySuccess.css";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchQuantityById } from "../../components/paySuccess/paySuccessSlice";
 import { unwrapResult } from "@reduxjs/toolkit";
-import html2canvas from "html2canvas";
 
 function PSuccess() {
   const dispatch = useDispatch();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const id = queryParams.get("id"); 
+  const id = queryParams.get("id");
+  console.log("ID:", id);
   const quantity = useSelector((state: any) => state.paySuccess.quantity);
   const dateUsed = useSelector((state: any) => state.paySuccess.dateUsed);
   const image = useSelector((state: any) => state.paySuccess.image);
-
   const [currentPage, setCurrentPage] = useState(1);
   const totalQuantity = useSelector((state: any) => state.paySuccess.quantity);
   const pageSize = 4;
   const totalPage = Math.ceil(totalQuantity / pageSize);
-  const handleDownloadCard = async () => {
-    const cardContainer = document.getElementById("cardContainer");
-    if (cardContainer) {
-      const canvas = await html2canvas(cardContainer);
-      const image = canvas.toDataURL("image/png");
-      console.log(image);
 
-      // Tạo một liên kết tải về
-      const link = document.createElement("a");
-      link.href = image;
-      link.download = "qrcode.png";
-      link.click();
-    }
-  };
   const handlePrevPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
@@ -236,12 +222,7 @@ function PSuccess() {
           margin: "-390px 0px 0px 490px",
         }}
       >
-        <Button
-          className="bold-park btnPaySuccessDownload"
-          onClick={handleDownloadCard}
-        >
-          Tải về
-        </Button>
+        <Button className="bold-park btnPaySuccessDownload">Tải về</Button>
         <Button className="bold-park btnPaySuccessMail">Gửi Email</Button>
       </div>
     </div>

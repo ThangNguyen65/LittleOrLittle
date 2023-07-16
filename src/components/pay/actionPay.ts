@@ -32,20 +32,14 @@ const initialState: DataState = {
 };
 
 export const addData = createAsyncThunk(
-  "data/addData",
-  async (newData: Omit<Pay, "id">, { getState }) => {
-    const { data } = (getState() as RootState).data;
-    const newId = Date.now().toString();
-    const updatedData = [...data, { ...newData, id: newId }];
-
+  "paySuccess/addData",
+  async (ticketData: any, thunkAPI) => {
     try {
-      // Cập nhật dữ liệu trong Firestore
-      await db.collection("TicketBook").doc(newId).set(newData);
-
-      // Trả về dữ liệu đã được cập nhật
-      return updatedData;
+      const docRef = await db.collection("TicketBook").add(ticketData);
+      const id = docRef.id;
+      return id;
     } catch (error) {
-      throw error;
+      return thunkAPI.rejectWithValue(error);
     }
   }
 );
@@ -56,12 +50,15 @@ const dataSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(addData.pending, (state) => {
+      .addCase(addData.pending, (state, action) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(addData.fulfilled, (state: any, action) => {
-        state.data = action.payload;
+      .addCase(addData.fulfilled, (state, action) => {
+        const id = action.payload;
+        state.data = state.data.map((item) =>
+          item.id === id ? { ...item, id } : item
+        );
         state.loading = false;
         state.error = null;
       })

@@ -9,7 +9,7 @@ import ArrowRight from "../../img/even/ArrowRight.svg";
 import "../../front/index.css";
 import "../../css/PaySuccess.css";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchQuantityById } from "../../components/paySuccess/paySuccessSlice";
+import { fetchQuantityById } from "../../api/paySuccess/paySuccessSlice";
 import { unwrapResult } from "@reduxjs/toolkit";
 
 function PSuccess() {

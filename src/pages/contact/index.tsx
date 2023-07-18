@@ -7,14 +7,37 @@ import addressContact from "../../img/contact/adressContact.svg";
 import mailContact from "../../img/contact/mailContact.svg";
 import PhoneContact from "../../img/contact/phonecontact.svg";
 import { useState } from "react";
+import { addData } from "../../api/contact";
+import { useDispatch } from "react-redux";
 function Contact() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const showModal = () => {
-    setIsModalOpen(true);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
+  const [description, setDescription] = useState("");
+  const dispatch = useDispatch();
+  const handleAddData = () => {
+    if (name && email && phone && address && description) {
+      const newData = {
+        name,
+        phone: parseInt(phone),
+        email,
+        address,
+        description,
+      };
+      dispatch(addData(newData as any) as any);
+      setIsModalOpen(true);
+    }
   };
+
   const handleCloseModal = () => {
     setIsModalOpen(false);
+    setName("");
+    setEmail("");
+    setPhone("");
+    setAddress("");
+    setDescription("");
   };
   return (
     <div className="bg_home">
@@ -50,24 +73,47 @@ function Contact() {
               volutpat, ut posuere ex facilisis.
             </Typography>
             <div className="NameEmailContact">
-              <Input className="NameContact" placeholder="Tên" />
+              <Input
+                className="NameContact"
+                placeholder="Tên"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
 
               <Input
                 className="EmailContact"
                 placeholder="Email"
                 type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div className="PhoneAddressContact">
-              <Input className="PhoneContact" placeholder="Số điện thoại" />
+              <Input
+                className="PhoneContact"
+                placeholder="Số điện thoại"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+              />
 
-              <Input className="AddressContact" placeholder="Địa chỉ" />
+              <Input
+                className="AddressContact"
+                placeholder="Địa chỉ"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+              />
             </div>
             <div>
-              <TextArea className="Message" rows={4} placeholder="Lời nhắn" />
+              <TextArea
+                className="Message"
+                rows={4}
+                placeholder="Lời nhắn"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
             </div>
             <div>
-              <Button className="bold-park btn_Contact" onClick={showModal}>
+              <Button className="bold-park btn_Contact" onClick={handleAddData}>
                 Gửi liên hệ
               </Button>
               <div className="bg_btnContactBottom"></div>
@@ -76,14 +122,15 @@ function Contact() {
                   margin: "160px 0px 0px 340px",
                   padding: "0px 100px 0px",
                 }}
-                open={isModalOpen}
                 onCancel={handleCloseModal}
+                visible={isModalOpen}
                 footer={null}
                 closeIcon={
                   <span
                     style={{
                       color: "orange",
                       fontSize: "30px",
+                      marginTop: "-8px",
                     }}
                   >
                     ×

@@ -7,21 +7,23 @@ import "../../css/Even.css";
 import IconsCalendar from "../../img/even/calendar.png";
 import ArrowLeft from "../../img/even/ArrowLeft.svg";
 import ArrowRight from "../../img/even/ArrowRight.svg";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   fetchData,
   selectData,
   selectError,
   selectLoading,
-} from "../../components/action";
-import { AppDispatch } from "../../components/store";
+} from "../../api/action";
+import { AppDispatch } from "../../api/store";
 import { Link } from "react-router-dom";
+
 function Even() {
   const data = useSelector(selectData);
   const loading = useSelector(selectLoading);
   const error = useSelector(selectError);
   const dispatch: AppDispatch = useDispatch();
+  const [currentPage, setCurrentPage] = useState(0);
 
   useEffect(() => {
     dispatch(fetchData());
@@ -33,6 +35,22 @@ function Even() {
   if (error) {
     return <div>Error: {error}</div>;
   }
+
+  const handlePrevPage = () => {
+    if (currentPage > 0) {
+      setCurrentPage((prevPage) => prevPage - 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < Math.ceil(data.length / 4) - 1) {
+      setCurrentPage((prevPage) => prevPage + 1);
+    }
+  };
+
+  const startIdx = currentPage * 4;
+  const endIdx = startIdx + 4;
+
   return (
     <div className="bg_home">
       <Image
@@ -57,6 +75,7 @@ function Even() {
           <Button
             className="btnEvenLeft"
             style={{ width: "45px", height: "35px" }}
+            onClick={handlePrevPage}
           >
             <Image
               src={ArrowLeft}
@@ -73,6 +92,7 @@ function Even() {
           <Button
             className="btnEvenRight"
             style={{ width: "45px", height: "35px" }}
+            onClick={handleNextPage}
           >
             <Image
               src={ArrowRight}
@@ -104,7 +124,7 @@ function Even() {
         <div className="container">
           <Row gutter={[16, 16]}>
             {data &&
-              data.map((item, index) => (
+              data.slice(startIdx, endIdx).map((item, index) => (
                 <Col key={item.id} span={5}>
                   <Card
                     key={item.id}

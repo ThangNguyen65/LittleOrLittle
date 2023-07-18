@@ -12,7 +12,7 @@ import {
   selectData,
   selectError,
   selectLoading,
-} from "../../components/action";
+} from "../../api/action";
 import { useParams } from "react-router-dom";
 function MotaSuKien() {
   const { eventId } = useParams();

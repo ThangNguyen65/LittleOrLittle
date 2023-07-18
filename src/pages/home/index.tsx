@@ -21,7 +21,7 @@ import "../../front/index.css";
 import "../../css/Home.css";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addData } from "../../components/Home/action";
+import { addData } from "../../api/Home/action";
 
 function Home() {
   const navigate = useNavigate();

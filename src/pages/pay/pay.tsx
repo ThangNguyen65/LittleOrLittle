@@ -9,9 +9,9 @@ import DuongVienChamTrangNho from "../../img/pay/DuongVienChamTrangNho.svg";
 import { useState } from "react";
 import dayjs from "dayjs";
 import { useLocation, useNavigate } from "react-router-dom";
-import { db } from "../../components/firebase";
+import { db } from "../../api/firebase";
 import { useDispatch } from "react-redux";
-import { addData } from "../../components/pay/actionPay";
+import { addData } from "../../api/pay/actionPay";
 
 function PayBook() {
   const location = useLocation();

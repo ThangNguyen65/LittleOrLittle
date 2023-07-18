@@ -123,7 +123,7 @@ function Contact() {
                   padding: "0px 100px 0px",
                 }}
                 onCancel={handleCloseModal}
-                visible={isModalOpen}
+                open={isModalOpen}
                 footer={null}
                 closeIcon={
                   <span

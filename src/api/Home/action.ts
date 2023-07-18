@@ -40,6 +40,7 @@ const dataSlice = createSlice({
       })
       .addCase(addData.fulfilled, (state: any, action) => {
         state.data = action.payload;
+        console.log(state.data);
         state.loading = false;
         state.error = null;
       })

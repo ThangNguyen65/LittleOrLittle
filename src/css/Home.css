@@ -374,7 +374,19 @@
   z-index: 1;
   border: 1px solid #ff8a00;
   border-radius: 4px;
+  color: black;
   content: "";
+}
+:where(.css-dev-only-do-not-override-14wwjjs).ant-picker-dropdown .ant-picker-cell .ant-picker-cell-inner {
+  position: relative;
+  z-index: 2;
+  display: inline-block;
+  min-width: 24px;
+  color: black !important;
+  height: 24px;
+  line-height: 24px;
+  border-radius: 4px;
+  transition: background 0.2s,border 0.2s;
 }
 .ant-picker-panel-container {
   margin-top: -157px;

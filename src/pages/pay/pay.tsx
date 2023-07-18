@@ -1,4 +1,4 @@
-import { Button, DatePicker, Image, Typography } from "antd";
+import { Button, DatePicker, Image, Modal, Typography } from "antd";
 import imageHome from "../../img/bg.png";
 import "../../front/index.css";
 import IconsDate from "../../img/home/date.svg";
@@ -9,90 +9,97 @@ import DuongVienChamTrangNho from "../../img/pay/DuongVienChamTrangNho.svg";
 import { useState } from "react";
 import dayjs from "dayjs";
 import { useLocation, useNavigate } from "react-router-dom";
-import { db } from "../../api/firebase";
-import { useDispatch } from "react-redux";
-import { addData } from "../../api/pay/actionPay";
-
+import { useDispatch, useSelector } from "react-redux";
+import { addData, selectLoading, selectError } from "../../api/pay/actionPay";
+import { CloseCircleOutlined } from "@ant-design/icons";
+import EmojiSadErrorPay from "../../img/pay/SadEmoji.svg";
 function PayBook() {
   const location = useLocation();
   const { state } = location;
   const navigate = useNavigate();
+  const loading = useSelector(selectLoading);
+  const error = useSelector(selectError);
   const [cardNumber, setCardNumber] = useState("");
+  const [formattedCardNumber, setFormattedCardNumber] = useState("");
   const [cardHolder, setCardHolder] = useState("");
   const [expirationDate, setExpirationDate] = useState("");
   const [cvv, setCVV] = useState("");
+  const [maskedCVV, setMaskedCVV] = useState("");
   const dispatch = useDispatch();
+  const [errorModalVisible, setErrorModalVisible] = useState(false);
   const handleDateChange = (date: any) => {
     const formattedDate = dayjs(date).format("DD/MM/YYYY");
     setExpirationDate(formattedDate);
   };
-  // const handleAddData = () => {
-  //   if (cardNumber && cardHolder && expirationDate && cvv) {
-  //     const ticketData = {
-  //       packageType: state.packageType,
-  //       quantity: state.quantity,
-  //       dateUsed: state.dateUsed,
-  //       fullName: state.fullName,
-  //       phoneNumber: state.phoneNumber,
-  //       email: state.email,
-  //       price: state.quantity * 120,
-  //       cardNumber,
-  //       cardHolder,
-  //       expirationDate,
-  //       cvv,
-  //       image:
-  //         "https://firebasestorage.googleapis.com/v0/b/little-and-little-29a59.appspot.com/o/QRCodePaySuccess.svg?alt=media&token=3ca529ef-59ba-4781-b45f-842b385345c9",
-  //       namePaySuccess: "ALT20210501",
-  //     };
-
-  //     db.collection("TicketBook")
-  //       .add(ticketData)
-  //       .then((docRef) => {
-  //         const id = docRef.id;
-  //         setCardNumber("");
-  //         setCardHolder("");
-  //         setExpirationDate("");
-  //         setCVV("");
-
-  //         navigate(`/paySuccess?id=${id}&quantity=${state.quantity}`);
-  //       })
-  //       .catch((error) => {
-  //         console.error("Lỗi khi lưu thông tin thanh toán:", error);
-  //       });
-  //   }
-  // };
   const handleAddData = () => {
-    if (cardNumber && cardHolder && expirationDate && cvv) {
-      const ticketData = {
-        packageType: state.packageType,
-        quantity: state.quantity,
-        dateUsed: state.dateUsed,
-        fullName: state.fullName,
-        phoneNumber: state.phoneNumber,
-        email: state.email,
-        price: state.quantity * 120,
-        cardNumber,
-        cardHolder,
-        expirationDate,
-        cvv,
-        image:
-          "https://firebasestorage.googleapis.com/v0/b/little-and-little-29a59.appspot.com/o/QRCodePaySuccess.svg?alt=media&token=3ca529ef-59ba-4781-b45f-842b385345c9",
-        namePaySuccess: "ALT20210501",
-      };
-      dispatch(addData(ticketData) as any)
-        .unwrap()
-        .then((id: string) => {
-          setCardNumber("");
-          setCardHolder("");
-          setExpirationDate("");
-          setCVV("");
-          navigate(`/paySuccess?id=${id}&quantity=${state.quantity}`);
-        })
-        .catch((error: any) => {
-          console.error("Lỗi khi lưu thông tin thanh toán:", error);
-        });
+    if (!cardNumber || !cardHolder || !expirationDate || !cvv) {
+      setErrorModalVisible(true);
+      return;
+    }
+    // const cardCVV = parseInt(cvv);
+    const ticketData = {
+      packageType: state.packageType,
+      quantity: state.quantity,
+      dateUsed: state.dateUsed,
+      fullName: state.fullName,
+      phoneNumber: state.phoneNumber,
+      email: state.email,
+      price: state.quantity * 120,
+      cardNumber,
+      cardHolder,
+      expirationDate,
+      cvv: parseInt(cvv),
+      image:
+        "https://firebasestorage.googleapis.com/v0/b/little-and-little-29a59.appspot.com/o/QRCodePaySuccess.svg?alt=media&token=3ca529ef-59ba-4781-b45f-842b385345c9",
+      namePaySuccess: "ALT20210501",
+    };
+
+    dispatch(addData(ticketData) as any)
+      .unwrap()
+      .then((id: string) => {
+        setCardNumber("");
+        setCardHolder("");
+        setExpirationDate("");
+        setCVV("");
+        navigate(`/paySuccess?id=${id}&quantity=${state.quantity}`);
+      })
+      .catch((error: any) => {
+        setErrorModalVisible(true);
+      });
+  };
+  // thay đổi số thẻ và CVV
+  const formatCardNumber = (value: string) => {
+    const trimmedValue = value.replace(/\s/g, "");
+    const groups = trimmedValue.match(/.{1,4}/g);
+    const formattedValue = groups ? groups.join(" ") : trimmedValue;
+    setFormattedCardNumber(formattedValue);
+  };
+  const maskCVV = (value: string) => {
+    const maskedValue = value.replace(/\d/g, "*");
+    setMaskedCVV(maskedValue);
+  };
+  // kiểm tra người dungf nhập số
+  const handleCardNumberKeyPress = (e: any) => {
+    const keyCode = e.which || e.keyCode;
+    const isValidKey = (keyCode >= 48 && keyCode <= 57) || keyCode === 32;
+    if (!isValidKey) {
+      e.preventDefault();
     }
   };
+
+  const handleCVVKeyPress = (e: any) => {
+    const keyCode = e.which || e.keyCode;
+    const isValidKey = keyCode >= 48 && keyCode <= 57;
+    if (!isValidKey) {
+      e.preventDefault();
+    }
+  };
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
   return (
     <div className="bg_home">
       <Image
@@ -143,7 +150,7 @@ function PayBook() {
                   <input
                     type="text"
                     className="PricePay"
-                    value={(state.quantity * 120).toFixed(3)}
+                    value={(state.quantity * 120).toFixed(3) + " " + "vnđ"}
                     readOnly
                   />
                 </div>
@@ -232,8 +239,13 @@ function PayBook() {
                   <input
                     type="text"
                     className="InPutNumberCard"
-                    value={cardNumber}
-                    onChange={(e) => setCardNumber(e.target.value)}
+                    value={formattedCardNumber}
+                    maxLength={19}
+                    onChange={(e) => {
+                      setCardNumber(e.target.value);
+                      formatCardNumber(e.target.value);
+                    }}
+                    onKeyPress={handleCardNumberKeyPress}
                   />
                 </div>
                 <div>
@@ -257,6 +269,7 @@ function PayBook() {
                       className="InputExpirationDate"
                       value={expirationDate}
                       onChange={(e) => setExpirationDate(e.target.value)}
+                      disabled
                     />
                     <div className="button-container-date">
                       <Button className="btn_bg_date_pay">
@@ -272,7 +285,6 @@ function PayBook() {
                           }}
                         />
                       </Button>
-
                       <DatePicker
                         picker="date"
                         className="btn_date_pay"
@@ -288,19 +300,22 @@ function PayBook() {
                   <input
                     type="text"
                     className="InputCVVCVC"
-                    value={cvv}
-                    onChange={(e) => setCVV(e.target.value)}
+                    value={maskedCVV}
+                    maxLength={3}
+                    onChange={(e) => {
+                      setCVV(e.target.value);
+                      maskCVV(e.target.value);
+                    }}
+                    onKeyPress={handleCVVKeyPress}
                   />
                 </div>
                 <div>
-                  {/* <Link to={`/paySuccess?quantity=${state.quantity}`}> */}
                   <Button
                     className="bold-park btn_Button_Pay"
                     onClick={handleAddData}
                   >
                     Thanh Toán
                   </Button>
-                  {/* </Link> */}
                   <div className="bg_btnContactBottom_pay"></div>
                 </div>
               </div>
@@ -309,6 +324,40 @@ function PayBook() {
           <div className="bgLevel4Phu3PayRight"></div>
         </div>
       </div>
+      <Modal
+        title={<span className="BgModalErrorPay"></span>}
+        open={errorModalVisible}
+        className="modalErrorPay"
+        onCancel={() => setErrorModalVisible(false)}
+        footer={null}
+        style={{ paddingTop: 0 }}
+        closeIcon={
+          <CloseCircleOutlined
+            style={{
+              opacity: "0",
+            }}
+          />
+        }
+      >
+        <Image
+          src={EmojiSadErrorPay}
+          preview={false}
+          className="EmojiSadPay"
+          style={{
+            margin: "-140px 0px 0px 90px",
+            width: "70px",
+          }}
+        />
+        <p
+          style={{
+            marginTop: "-30px",
+          }}
+        >
+          Hình như đã có lỗi xảy ra khi thanh <br /> toán...
+          <br /> Vui lòng kiểm tra lại thông tin liên hệ,
+          <br /> thông tin thẻ và thử lại.
+        </p>
+      </Modal>
     </div>
   );
 }

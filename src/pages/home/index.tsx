@@ -20,12 +20,13 @@ import dayjs from "dayjs";
 import "../../front/index.css";
 import "../../css/Home.css";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { addData } from "../../api/Home/action";
+import { useDispatch, useSelector } from "react-redux";
+import { addData, selectLoading, selectError } from "../../api/Home/action";
 
 function Home() {
   const navigate = useNavigate();
-
+  const loading = useSelector(selectLoading);
+  const error = useSelector(selectError);
   const [packageType, setPackageType] = useState("Gói Gia Đình");
   const [quantity, setQuantity] = useState("");
   const [dateUsed, setDateUsed] = useState("");
@@ -36,6 +37,20 @@ function Home() {
   const handleDateChange = (date: any) => {
     const formattedDate = dayjs(date).format("DD/MM/YYYY");
     setDateUsed(formattedDate);
+  };
+  const handlePhoneKeyPress = (e: any) => {
+    const keyCode = e.which || e.keyCode;
+    const isValidKey = (keyCode >= 48 && keyCode <= 57) || keyCode === 32;
+    if (!isValidKey) {
+      e.preventDefault();
+    }
+  };
+  const handleQuantityKeyPress = (e: any) => {
+    const keyCode = e.which || e.keyCode;
+    const isValidKey = (keyCode >= 48 && keyCode <= 57) || keyCode === 32;
+    if (!isValidKey) {
+      e.preventDefault();
+    }
   };
 
   const handleAddData = () => {
@@ -67,7 +82,12 @@ function Home() {
       navigate("/pay", { state: { ...newData, id: "newId" } });
     }
   };
-
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
   return (
     <div className="bg_home">
       <Image
@@ -294,13 +314,15 @@ function Home() {
                   placeholder="Số lượng vé"
                   value={quantity}
                   onChange={(e) => setQuantity(e.target.value)}
+                  onKeyPress={handleQuantityKeyPress}
+                  maxLength={2}
                 />
 
                 <Input
                   className="InPutDateUsedHome"
                   placeholder="Ngày sử dụng"
                   value={dateUsed}
-                  onChange={(e) => setQuantity(e.target.value)}
+                  onChange={(e) => setDateUsed(e.target.value)}
                 />
                 <div className="button-container-date">
                   <Button className="btn_bg_date">
@@ -318,6 +340,7 @@ function Home() {
                   </Button>
                   <DatePicker
                     picker="date"
+                    allowClear={false}
                     className="btn_date"
                     onChange={handleDateChange}
                     style={{ opacity: "0" }}
@@ -343,6 +366,8 @@ function Home() {
                   className="InPutPhoneHome"
                   value={phoneNumber}
                   onChange={(e) => setPhoneNumber(e.target.value)}
+                  onKeyPress={handlePhoneKeyPress}
+                  maxLength={10}
                 />
               </div>
               <div>

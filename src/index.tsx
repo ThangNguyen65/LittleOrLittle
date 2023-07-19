@@ -11,6 +11,7 @@ import "./css/Pay.css";
 import "./css/Contact.css";
 import { Provider } from "react-redux";
 import store from "./api/store";
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

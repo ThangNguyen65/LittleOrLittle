@@ -13,7 +13,6 @@ import { fetchQuantityById } from "../../api/paySuccess/paySuccessSlice";
 import { unwrapResult } from "@reduxjs/toolkit";
 
 function PSuccess() {
-  const nodemailer = require("nodemailer");
   const dispatch = useDispatch();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -26,13 +25,7 @@ function PSuccess() {
   const totalQuantity = useSelector((state: any) => state.paySuccess.quantity);
   const pageSize = 4;
   const totalPage = Math.ceil(totalQuantity / pageSize);
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: "YOUR_EMAIL",
-      pass: "YOUR_PASSWORD",
-    },
-  });
+
   const handlePrevPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);

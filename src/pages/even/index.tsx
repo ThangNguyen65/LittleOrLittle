@@ -1,4 +1,4 @@
-import { Button, Card, Col, Image, Row, Typography } from "antd";
+import { Button, Card, Col, Image, Row, Typography, Spin } from "antd";
 import imageHome from "../../img/bg.png";
 import PaperEven from "../../img/even/Frame.png";
 import GiayEventRight from "../../img/even/LaCoRight.svg";
@@ -30,7 +30,15 @@ function Even() {
   }, [dispatch]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div
+        style={{
+          margin: "250px 0px 0px 610px",
+        }}
+      >
+        <Spin size="large" />
+      </div>
+    );
   }
   if (error) {
     return <div>Error: {error}</div>;

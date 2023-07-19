@@ -3,12 +3,14 @@ import dataReducer from "../api/action";
 import paySuccessReducer from "./paySuccess/paySuccessSlice";
 import Pay from "./pay/actionPay";
 import Contact from "./contact/index";
+import calendar from "./test"
 const store = configureStore({
   reducer: {
     data: dataReducer,
     paySuccess: paySuccessReducer,
     pay: Pay,
     contact: Contact,
+    calendar:calendar
   },
 });
 

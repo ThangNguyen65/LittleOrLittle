@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Image, Typography } from "antd";
+import { Image, Typography, Spin } from "antd";
 import imageHome from "../../img/bg.png";
 import PaperEven from "../../img/detailEvent/DetailEventBg.png";
 import GiayEventRight from "../../img/even/LaCoRight.svg";
@@ -26,7 +26,15 @@ function MotaSuKien() {
   }, [dispatch]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div
+        style={{
+          margin: "220px 0px 0px 650px",
+        }}
+      >
+        <Spin size="large" />
+      </div>
+    );
   }
   if (error) {
     return <div>Error: {error}</div>;

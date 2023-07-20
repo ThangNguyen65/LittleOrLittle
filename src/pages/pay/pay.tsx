@@ -1,4 +1,11 @@
-import { Button, ConfigProvider, DatePicker, Image, Modal, Typography } from "antd";
+import {
+  Button,
+  ConfigProvider,
+  DatePicker,
+  Image,
+  Modal,
+  Typography,
+} from "antd";
 import imageHome from "../../img/bg.png";
 import "../../front/index.css";
 import IconsDate from "../../img/home/date.svg";
@@ -51,7 +58,7 @@ function PayBook() {
       cardNumber,
       cardHolder,
       expirationDate,
-      cvv: parseInt(cvv),
+      cvv,
       image:
         "https://firebasestorage.googleapis.com/v0/b/little-and-little-29a59.appspot.com/o/QRCodePaySuccess.svg?alt=media&token=3ca529ef-59ba-4781-b45f-842b385345c9",
       namePaySuccess: "ALT20210501",
